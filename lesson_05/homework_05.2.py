@@ -33,5 +33,9 @@ print(*people_records, sep='\n')
 # Task 3
 print("\nTask #3:")
 target_person_indexes = [6, 10, 13]
+all_target_people_are_older_30 = True
 for index in target_person_indexes:
-    print(f"{people_records[index][0]} is {"30+ years old" if people_records[index][2] >= 30 else "younger than 30"}.")
+    if people_records[index][2] < 30:
+      all_target_people_are_older_30 = False
+      break
+print(f"Check result of selected people to be older or 30: {all_target_people_are_older_30}")
