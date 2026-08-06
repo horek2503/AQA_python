@@ -38,13 +38,11 @@ print(sum_of_two_numbers(3, 9))
 # task 3
 """  Написати функцію, яка розрахує середнє арифметичне списку чисел.
 """
-def avg_of_two_numbers(num1, num2):
-    return (num1 + num2) / 2
-
-number_1 = 9
-number_2 = 14
+def avg_of_numbers(input_list:list):
+    return sum(input_list) / len(input_list)
+numbers = [9, 14, 12, 31]
 print("\n# task 3:")
-print(f"Average of {number_1} and {number_2} is {avg_of_two_numbers(number_1, number_2)}")
+print(f"Average of {numbers} is {avg_of_numbers(numbers)}")
 
 # task 4
 """  Написати функцію, яка приймає рядок та повертає його у зворотному порядку.
