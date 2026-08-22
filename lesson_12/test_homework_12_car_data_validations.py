@@ -46,25 +46,28 @@ def test_validate_params_for_each_car():
                                     f"Error for '{car}' car: '{expected_car_format_keys[i]}' is expected to have type {expected_car_format_values[i]}, but got: {type(params[i])}"
                                     ).is_type_of(expected_car_format_values[i])
 
+
 @pytest.mark.parametrize('distance, fuel_consumption, tank, ER',
                          [(1000, 10, 50, 2),
                           (750, 8, 46, 2),
                           (1800, 12, 60, 4),
                           (0, 5, 50, 0)
-                         ])
-def test_count_gas_station_visits_in_trip_positive (distance, fuel_consumption, tank, ER):
+                          ])
+def test_count_gas_station_visits_in_trip_positive(distance, fuel_consumption, tank, ER):
     assert_that(count_gas_station_visits_in_trip(distance, fuel_consumption, tank),
                 f"Wrong gas station visits calculation for input data set: {distance} - {fuel_consumption} - {tank}"
                 ).is_equal_to(ER)
 
+
 @pytest.mark.parametrize('distance, fuel_consumption, tank, expected_error_type',
                          [(None, 10, 50, TypeError),
                           (-50, 0, 46, ValueError),
-                          (1800, 'some', 60,  TypeError),
+                          (1800, 'some', 60, TypeError),
                           (0, -3, 50, ValueError),
+                          (500, 8, None, TypeError),
                           (950, 7, -9, ValueError)
-                         ])
-def test_count_gas_station_visits_in_trip_negative (distance, fuel_consumption, tank, expected_error_type):
+                          ])
+def test_count_gas_station_visits_in_trip_negative(distance, fuel_consumption, tank, expected_error_type):
     expected_error_caught = False
     try:
         count_gas_station_visits_in_trip(distance, fuel_consumption, tank)

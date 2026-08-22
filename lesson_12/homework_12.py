@@ -18,11 +18,11 @@ def count_gas_station_visits_in_trip(distance, fuel_consumption, tank):
         raise ValueError('Distance must be positive!')
     if not isinstance(fuel_consumption, (int, float)):
         raise TypeError('Fuel consumption must be a number!')
-    if not 0 > fuel_consumption < 100:
+    if not 0 < fuel_consumption < 100:
         raise ValueError('Incorrect fuel consumption!')
     if not isinstance(tank, (int, float)):
         raise TypeError('Tank must be a number!')
-    if not 0 > tank < 100:
+    if not 0 < tank < 100:
         raise ValueError('Incorrect tank value!')
 
     total_fuel_needed = distance / 100 * fuel_consumption
