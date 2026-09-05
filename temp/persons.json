@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Ivan",
+    "position": "General QA",
+    "age": 35
+  },
+  {
+    "name": "Olena",
+    "age": 30,
+    "position": "AQA",
+    "second_name": "Timkova"
+  },
+  {
+    "name": "Oleh",
+    "position": "Manual QA",
+    "age": 40,
+    "salary": 2000
+  }
+]
