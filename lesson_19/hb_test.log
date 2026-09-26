@@ -1,0 +1,5 @@
+ERROR: Line 108: Difference between time records "04:51:17" and "04:50:42" is "0:00:35"
+ERROR: Line 251: Difference between time records "03:39:11" and "03:38:36" is "0:00:35"
+ERROR: Line 394: Difference between time records "02:27:06" and "02:26:30" is "0:00:36"
+WARNING: Line 497:Difference between time records "01:35:10" and "01:34:38" is "0:00:32"
+ERROR: Line 537: Difference between time records "01:14:58" and "01:14:23" is "0:00:35"
