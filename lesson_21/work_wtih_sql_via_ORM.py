@@ -1,7 +1,7 @@
 import secrets.db_secrets as s
 import random
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, Float, ForeignKey, select, or_, and_
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from faker import Faker
 
 faker = Faker(locale='en_US')
@@ -16,10 +16,12 @@ class Category(Base):
     __tablename__ = 'categories_orm'
 
     id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
     description = Column(String)
     isavailable = Column(Boolean,default=True)
     isdeleted = Column(Boolean, default=False)
+    # RELATIONSHIP
+    products = relationship("Product", back_populates='category')
 
 class Product(Base):
     __tablename__ = 'products_orm'
@@ -34,7 +36,8 @@ class Product(Base):
     def __str__(self):
         return f"Product with id={self.id}, name={self.name}, price = {self.price}"
 
-
+    # RELATIONSHIP
+    category = relationship("Category", back_populates='products')
 
 DB_URL = f'postgresql://{s.DB_USER}:{s.DB_PASSWORD}@{s.DB_HOST}:{s.DB_PORT}/{s.DB_NAME}'
 # print(DB_URL)
@@ -61,8 +64,13 @@ if not check_if_category2_exists:
     session.add(new_category2)
 
 ### One product
-new_product = Product(name='ORM_item_1', price=123.45, description='Created via ORM', categoryId=2)
-session.add(new_product)
+# new_product = Product(name=faker.word(), price=random.randint(100, 10000) / 100, description='Created via ORM', categoryId=2)
+# session.add(new_product)
+
+### One product with relationship
+related_category = session.query(Category).filter_by(name="Advanced").first()
+rel_product = Product(name='VIP', price = 100.11, category=related_category)
+session.add(rel_product)
 
 ### Several products
 # products = []
