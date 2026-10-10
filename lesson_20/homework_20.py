@@ -1,5 +1,5 @@
 import psycopg2
-import secrets.db_secrets as s
+import secrets_storage.db_secrets as s
 
 
 def execute_db_query(query: str, do_commit: bool = False, return_data: bool = False):

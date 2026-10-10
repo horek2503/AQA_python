@@ -1,5 +1,5 @@
 import psycopg2
-import secrets.db_secrets as s
+import secrets_storage.db_secrets as s
 from faker import Faker
 
 ### CONNECTION

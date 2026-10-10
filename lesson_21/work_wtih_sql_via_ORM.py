@@ -1,4 +1,4 @@
-import secrets.db_secrets as s
+import secrets_storage.db_secrets as s
 import random
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, Float, ForeignKey, select, or_, and_
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
