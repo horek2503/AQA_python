@@ -15,13 +15,13 @@ class TestGetStudents:
     def test_get_students(self):
         logger.info('Starting tests for endpoint "GET /students/"')
 
-        response = self.student_ctrl.get_students(base_url=self.service_url)
+        response = self.student_ctrl.get_students(base_url=self.service_url, expected_status_code=200)
         students = response.json()
 
-        assert response.status_code == 200
+        # assert response.status_code == 200 # -> instead we check in controller via "expected_status_code"
         assert len(students) > 0
-        for student in students:
-            student_checker.check_student_response_structure(student)
+        # for student in students: # -> instead we check in controller via marshmallow
+        #     student_checker.check_student_response_structure(student)
 
 
     @pytest.mark.parametrize('sort_by',

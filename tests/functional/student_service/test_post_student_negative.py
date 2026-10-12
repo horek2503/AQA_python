@@ -13,7 +13,6 @@ class TestPostStudent:
             'name': 'Test',
             'score': 100
         }
-        response = self.student_ctrl.post_student(base_url=self.service_url, request_body = user_data, use_token=False)
-        
-        assert response.status_code == 401
+        response = self.student_ctrl.post_student(
+            base_url=self.service_url, request_body = user_data, use_token=False, expected_status_code=401, validate_schema=False)
 

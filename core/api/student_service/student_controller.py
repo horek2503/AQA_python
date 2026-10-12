@@ -2,6 +2,8 @@ import logging
 import requests
 from curlify import to_curl
 
+from core.api.student_service.DTOs.student_schema import StudentSchema
+
 logger = logging.getLogger()
 
 
@@ -10,17 +12,25 @@ class StudentController:
     def __init__(self):
         self.__token = None
 
-    def get_students(self, base_url, query_params=None):
+    def get_students(self, base_url, query_params=None, expected_status_code=200):
         response = requests.get(url=f'{base_url}/students', params=query_params)
         self.log_curl(response.request)
+
+        StudentSchema(many=True).load(response.json())
+        assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+
         return response
 
-    def get_student(self, base_url, student_id, query_params=None):
+    def get_student(self, base_url, student_id, query_params=None, expected_status_code=200):
         response = requests.get(url=f'{base_url}/students/{student_id}', params=query_params)
         self.log_curl(response.request)
+
+        StudentSchema().load(response.json())
+        assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+
         return response
 
-    def post_student(self, base_url, request_body: dict, use_token: bool = True):
+    def post_student(self, base_url, request_body: dict, use_token: bool = True, expected_status_code=201, validate_schema=True):
         if use_token:
             if self.__token is None:
                 self.__get_token(base_url)
@@ -29,6 +39,11 @@ class StudentController:
             headers = {}
         response = requests.post(url=f'{base_url}/students', json=request_body, headers=headers)
         self.log_curl(response.request)
+
+        if validate_schema:
+            StudentSchema().load(response.json())
+        assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+
         return response
 
     def log_curl(self, request):
@@ -38,7 +53,6 @@ class StudentController:
     def __get_token(self, base_url, username='test', password='test'):
         response = requests.post(url=f'{base_url}/auth', json={"name": username, "password": password})
         self.__token = response.text
-
 
 # body = {
 #     "name": "Ihor",

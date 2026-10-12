@@ -21,10 +21,10 @@ class TestPostStudent:
             'name': user_name,
             'score': user_score
         }
-        response = self.student_ctrl.post_student(base_url=self.service_url, request_body = user_data)
+        response = self.student_ctrl.post_student(base_url=self.service_url, request_body = user_data, expected_status_code=201)
 
-        assert response.status_code == 201
+        # assert response.status_code == 201 # -> instead we check in controller via "expected_status_code"
         student = response.json()
-        student_checker.check_student_response_structure(student)
+        # student_checker.check_student_response_structure(student) # -> instead we check in controller via marshmallow
         assert student['name'] == user_name
         assert student['score'] == user_score
