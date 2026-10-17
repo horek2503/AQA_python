@@ -30,7 +30,8 @@ class StudentController:
 
         return response
 
-    def post_student(self, base_url, request_body: dict, use_token: bool = True, expected_status_code=201, validate_schema=True):
+    def post_student(self, base_url, request_body: dict, use_token: bool = True, expected_status_code=201,
+                     validate_schema=True):
         if use_token:
             if self.__token is None:
                 self.__get_token(base_url)
@@ -46,12 +47,39 @@ class StudentController:
 
         return response
 
+    def put_student(self, base_url,  student_id: int, request_body: dict, use_token: bool = True, expected_status_code=200,
+                     validate_schema=True):
+        if use_token:
+            if self.__token is None:
+                self.__get_token(base_url)
+            headers = {'token': self.__token}
+        else:
+            headers = {}
+        response = requests.put(url=f'{base_url}/students/{student_id}', json=request_body, headers=headers)
+        self.log_curl(response.request)
+
+        if validate_schema:
+            StudentSchema().load(response.json())
+        assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+
+        return response
+
+    def delete_student(self, base_url, student_id: int, expected_status_code=204):
+        if self.__token is None:
+            self.__get_token(base_url)
+        headers = {'token': self.__token}
+
+        response = requests.delete(url=f'{base_url}/students/{student_id}', headers=headers)
+        self.log_curl(response.request)
+        return response
+
     def log_curl(self, request):
         curl = to_curl(request)
         logger.info(f'CURL: "{curl}"')
 
     def __get_token(self, base_url, username='test', password='test'):
         response = requests.post(url=f'{base_url}/auth', json={"name": username, "password": password})
+        self.log_curl(response.request)
         self.__token = response.text
 
 # body = {

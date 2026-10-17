@@ -3,7 +3,7 @@ import logging
 
 logger = logging.getLogger()
 
-class TestPostStudent:
+class TestPostStudentNegative:
     student_ctrl = StudentController()
     service_url = 'http://127.0.0.1:8080'
 
@@ -14,5 +14,5 @@ class TestPostStudent:
             'score': 100
         }
         response = self.student_ctrl.post_student(
-            base_url=self.service_url, request_body = user_data, use_token=False, expected_status_code=401, validate_schema=False)
+            base_url=self.service_url, request_body = user_data, use_token=False, expected_status_code=401, validate_schema=False )
 
