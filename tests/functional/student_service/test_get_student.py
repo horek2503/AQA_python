@@ -1,21 +1,27 @@
-from core.api.student_service.assertions.student_assertions import StudentAssertBase
-from core.api.student_service.student_controller import StudentController
-import pytest
 import logging
+import pytest
+from core.api.student_service.student_controller import StudentController
+from tests.functional.student_service.settings import SERVICE_URL
 
 logger = logging.getLogger()
-student_id = 1
-student_checker = StudentAssertBase()
 
 
 class TestGetStudent:
     student_ctrl = StudentController()
-    service_url = 'http://127.0.0.1:8080'
 
-    def test_get_student_by_id(self):
+    @pytest.mark.parametrize('student_id, expected_name, expected_score',
+                             [
+                                 (1, 'Jennifer Estrada', 48),
+                                 (3, 'Michelle Myers', 64),
+                                 (5, 'Edwin Thompson', 50),
+                                 (7, 'Jessica Walter', 11),
+                                 (9, 'George White', 1)
+                             ])
+    def test_get_student_by_id(self, student_id, expected_name, expected_score):
+
         logger.info(f'Starting tests for endpoint "GET /students/{student_id}"')
-        response = self.student_ctrl.get_student(base_url=self.service_url, student_id=student_id, expected_status_code=200)
-        # assert response.status_code == 200 # -> instead we check in controller via "expected_status_code"
+        response = self.student_ctrl.get_student(base_url=SERVICE_URL, student_id=student_id, expected_status_code=200)
         student = response.json()
-        # student_checker.check_student_response_structure(student) # -> instead we check in controller via marshmallow
-        assert student['id'] == 1
+        assert student['id'] == student_id
+        assert student['name'] == expected_name
+        assert student['score'] == expected_score

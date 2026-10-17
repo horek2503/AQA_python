@@ -18,7 +18,7 @@ service_url = 'http://127.0.0.1:8080'
 # package - виконується 1 раз для всіх тестів в package
 # session - виконується 1 раз для всіх тестів
 
-@pytest.fixture(scope="package")
+@pytest.fixture(scope="module")
 def create_and_delete_student():
     user_name = faker.name()
     user_score = random.randint(1, 100)

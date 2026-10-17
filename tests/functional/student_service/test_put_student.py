@@ -1,9 +1,10 @@
 from core.api.student_service.student_controller import StudentController
+from tests.functional.student_service.settings import SERVICE_URL
 import logging
 
 logger = logging.getLogger()
 student_ctrl = StudentController()
-service_url = 'http://127.0.0.1:8080'
+
 
 class TestPutStudent:
 
@@ -15,7 +16,7 @@ class TestPutStudent:
             'score': 10
         }
         upd_student_response = student_ctrl.put_student(
-            base_url=service_url,
+            base_url=SERVICE_URL,
             student_id=student['id'],
             request_body=upd_user_data, expected_status_code=200)
 
@@ -31,7 +32,7 @@ class TestPutStudent:
             'name': 'Spy'
         }
         upd_student_response = student_ctrl.put_student(
-            base_url=service_url,
+            base_url=SERVICE_URL,
             student_id=student['id'],
             request_body=upd_user_data, expected_status_code=200)
 

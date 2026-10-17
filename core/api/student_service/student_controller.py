@@ -47,8 +47,9 @@ class StudentController:
 
         return response
 
-    def put_student(self, base_url,  student_id: int, request_body: dict, use_token: bool = True, expected_status_code=200,
-                     validate_schema=True):
+    def put_student(self, base_url, student_id: int, request_body: dict, use_token: bool = True,
+                    expected_status_code=200,
+                    validate_schema=True):
         if use_token:
             if self.__token is None:
                 self.__get_token(base_url)
@@ -71,6 +72,10 @@ class StudentController:
 
         response = requests.delete(url=f'{base_url}/students/{student_id}', headers=headers)
         self.log_curl(response.request)
+
+        assert response.status_code == expected_status_code, \
+            f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+
         return response
 
     def log_curl(self, request):
@@ -81,11 +86,3 @@ class StudentController:
         response = requests.post(url=f'{base_url}/auth', json={"name": username, "password": password})
         self.log_curl(response.request)
         self.__token = response.text
-
-# body = {
-#     "name": "Ihor",
-#     "score": 99
-# }
-#
-# st = StudentController()
-# print(st.post_student(base_url='http://127.0.0.1:8080', request_body=body))
