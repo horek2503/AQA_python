@@ -1,13 +1,17 @@
+import random
+from faker import Faker
 from tests.functional.student_service.conftest import TestStudentBase
+
+faker = Faker()
 
 class TestPutStudent(TestStudentBase):
 
     def test_put_student_score(self, create_and_delete_student):
-        self.logger.info(f'Starting test "test_put_student_score"')
         student = create_and_delete_student
-
+        self.logger.info(f'Starting test "test_put_student_score" for student with id = {student['id']}, score =  {student['score']}')
+        target_score = random.randint(1,100)
         upd_user_data = {
-            'score': 10
+            'score': target_score
         }
         upd_student_response = self.student_ctrl.put_student(
             base_url=self.SERVICE_URL,
@@ -16,14 +20,14 @@ class TestPutStudent(TestStudentBase):
 
         upd_student = upd_student_response.json()
 
-        assert upd_student['score'] == 10, 'Updated student score must be 10'
+        assert upd_student['score'] == target_score, f'Updated student score must be {target_score}'
 
     def test_put_student_name(self, create_and_delete_student):
-        self.logger.info(f'Starting test "test_put_student_name"')
         student = create_and_delete_student
-
+        self.logger.info(f'Starting test "test_put_student_name" for student with id = {student['id']}, name = {student['name']}')
+        target_name = faker.name()
         upd_user_data = {
-            'name': 'Spy'
+            'name': target_name
         }
         upd_student_response = self.student_ctrl.put_student(
             base_url=self.SERVICE_URL,
@@ -32,4 +36,4 @@ class TestPutStudent(TestStudentBase):
 
         upd_student = upd_student_response.json()
 
-        assert upd_student['name'] == 'Spy', "Updated student name must be 'Spy'"
+        assert upd_student['name'] == target_name, f"Updated student name must be {target_name}"

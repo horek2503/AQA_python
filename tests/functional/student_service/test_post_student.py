@@ -27,6 +27,6 @@ class TestPostStudent(TestStudentBase):
     def delete_student(self):
         yield
         if __class__.student_to_delete_id:
-            self.logger.info(f'Deleting created student "DELETE /students/id"')
+            self.logger.info(f'Deleting created student with id = {__class__.student_to_delete_id}')
             self.student_ctrl.delete_student(base_url=self.SERVICE_URL, student_id=__class__.student_to_delete_id,
                                              expected_status_code=204)

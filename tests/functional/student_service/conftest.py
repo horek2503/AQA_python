@@ -2,7 +2,6 @@ import pytest
 import logging
 import random
 from core.api.student_service.student_controller import StudentController
-# from tests.functional.student_service.settings import SERVICE_URL
 from faker import Faker
 
 faker = Faker()
@@ -27,10 +26,12 @@ class TestStudentBase:
             'name': user_name,
             'score': user_score
         }
+        self.logger.info(f'Pre-conditions: Creating a new student...')
         response = self.student_ctrl.post_student(base_url=self.SERVICE_URL, request_body=user_data, expected_status_code=201)
         student = response.json()
+        self.logger.info(f'Pre-conditions: new student is created with id = {student['id']}')
 
         yield student
 
-        self.logger.info(f'Deleting created user "DELETE /students/id"')
+        self.logger.info(f'Post-conditions: Deleting student with id = {student['id']}')
         self.student_ctrl.delete_student(base_url=self.SERVICE_URL, student_id=student['id'], expected_status_code=204)

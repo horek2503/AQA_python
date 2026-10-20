@@ -16,8 +16,8 @@ class StudentController:
         response = requests.get(url=f'{base_url}/students', params=query_params)
         self.log_curl(response.request)
 
-        StudentSchema(many=True).load(response.json())
         assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+        StudentSchema(many=True).load(response.json())
 
         return response
 
@@ -25,8 +25,8 @@ class StudentController:
         response = requests.get(url=f'{base_url}/students/{student_id}', params=query_params)
         self.log_curl(response.request)
 
-        StudentSchema().load(response.json())
         assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
+        StudentSchema().load(response.json())
 
         return response
 

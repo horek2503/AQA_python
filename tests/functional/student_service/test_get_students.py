@@ -22,3 +22,13 @@ class TestGetStudents(TestStudentBase):
         response = self.student_ctrl.get_students(base_url=self.SERVICE_URL, query_params={"sort_by": sort_by})
         students = response.json()
         student_checker.check_students_are_sorted_by_param(students, sort_by)
+
+    @pytest.mark.parametrize('limit',
+                             [None, 10, 15, 20, 100])
+    def test_get_students_check_limit(self, limit):
+        expected_limit = limit if limit else 10
+        query_params = {"limit": limit} if limit else {}
+        self.logger.info(f'Starting tests for endpoint "GET /students/" with limit = "{expected_limit}"')
+        response = self.student_ctrl.get_students(base_url=self.SERVICE_URL, query_params=query_params)
+        students = response.json()
+        assert len(students) == expected_limit, f'"GET /students/" limit test failed. ER = {expected_limit}; AR = {len(students)}'
