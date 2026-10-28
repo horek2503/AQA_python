@@ -336,14 +336,17 @@ def test_capitalize_text(input_string, expected_string):
 #                         ).contains('bba')
 
 # -----------------------------------------
-import time
-from datetime import datetime, timedelta
-
-current_time_str = time.time()
-print(time.ctime(current_time_str))
-
-print(datetime.now())
-diff = timedelta(days=3, hours=2)
-print(datetime.now() - diff)
-# print(time.strftime('%Y - %m - %d : %z', time.localtime()))
+# import time
+# from datetime import datetime, timedelta
+#
+# current_time_str = time.time()
+# print(time.ctime(current_time_str))
+#
+# print(datetime.now())
+# diff = timedelta(days=3, hours=2)
+# print(datetime.now() - diff)
+# # print(time.strftime('%Y - %m - %d : %z', time.localtime()))
 # -----------------------------------------
+
+price_str = '138 548 uah'
+print(''.join(price_str.split(' ')[:-1]))
