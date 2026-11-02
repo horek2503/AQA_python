@@ -1,0 +1,5 @@
+FROM postgres:latest
+
+ENV POSTGRES_USER=qa
+ENV POSTGRES_PASSWORD=!@#123QWEqwe
+ENV POSTGRES_DB=aqa_docker
