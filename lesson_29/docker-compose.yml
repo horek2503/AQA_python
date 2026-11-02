@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: qa
+      POSTGRES_PASSWORD: 123QWE
+      POSTGRES_DB: aqa_docker
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: hw29.dockerfile
+    depends_on:
+      - db
