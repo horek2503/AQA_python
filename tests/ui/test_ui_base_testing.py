@@ -1,10 +1,12 @@
+import time
+
 from assertpy import assert_that, soft_assertions
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 from definitions import SCREEN_FOLDER
 
 
 def test_any_page_for_demo():
-    with (sync_playwright() as p):
+    with sync_playwright() as p:
         browser = p.chromium.launch(headless=False, slow_mo=100, timeout=10000)
         page = browser.new_page()
         page.set_default_timeout(5 * 1000)
@@ -53,3 +55,32 @@ def test_any_page_for_demo():
         # results_page_locator.click()
         # print(results_page_locator)
         page.wait_for_timeout(5 * 1000)
+
+def test_for_test_microtron():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False, slow_mo=100, timeout=10*1000)
+        page = browser.new_page()
+        page.goto("https://microtron.ua/")
+
+        ### To show locators can be saved and then included locators can be searched inside
+        # page_header_locator = page.locator('//div[@class="header_center"]')
+        # header_logo_locator = page_header_locator.get_by_role("img", name="logo")
+        # # favicon
+        # expect(header_logo_locator).to_be_visible()
+        # # top menu first section
+        # top_menu_locator = page_header_locator.get_by_text("АКЦІЇ")
+        # expect(top_menu_locator).to_be_visible()
+
+        ### Locators by CSS
+        # login_buton_locator = page.locator("a[class ='profile_non_auth_button uppercase']")
+        # expect(login_buton_locator).to_be_visible()
+        # # login_buton_locator.click()
+        # wishlist_button_locator = page.locator('[href="https://microtron.ua/wishlst"].icon_cont')
+        # expect(wishlist_button_locator).to_be_visible()
+        # wishlist_button_locator.click()
+        # close_sign_in_locator = page.locator('.sign_in_close')
+        # close_sign_in_locator.click()
+        cart_sum_locator = page.locator('div.summ span')
+        expect(cart_sum_locator.text_content()).to_contain_text('0')
+
+        time.sleep(5)
