@@ -1,7 +1,7 @@
 import pytest
 from tests.functional.student_service.conftest import TestStudentBase
 
-
+@pytest.mark.negative
 class TestPutStudentNegative(TestStudentBase):
 
     @pytest.mark.parametrize('score',

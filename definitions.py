@@ -9,3 +9,5 @@ SCREEN_FOLDER = Path(BASE_FOLDER, 'tests', 'ui', 'screenshots')
 
 TEMP_FOLDER.mkdir(exist_ok=True)
 LOGS_FOLDER.mkdir(exist_ok=True)
+
+MICROTRON_BASE_URL = 'https://microtron.ua/'

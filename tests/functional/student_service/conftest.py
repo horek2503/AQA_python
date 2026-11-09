@@ -13,6 +13,7 @@ faker = Faker()
 # package - виконується 1 раз для всіх тестів в package
 # session - виконується 1 раз для всіх тестів
 
+@pytest.mark.api
 class TestStudentBase:
     student_ctrl = StudentController()
     logger = logging.getLogger()

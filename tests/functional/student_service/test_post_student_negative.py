@@ -1,7 +1,7 @@
 import pytest
 from tests.functional.student_service.conftest import TestStudentBase
 
-
+@pytest.mark.negative
 class TestPostStudentNegative(TestStudentBase):
 
     def test_post_student_without_auth_negative(self):
