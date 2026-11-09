@@ -1,3 +1,5 @@
+from playwright.sync_api import Page
+
 from core.ui.microtron_ua.locators.main_page import MainPageLocators
 from core.ui.microtron_ua.pages.base_page import BasePage
 from definitions import MICROTRON_BASE_URL
@@ -8,10 +10,11 @@ import time
 logger = getLogger()
 
 class MainPage(BasePage):
-    def __init__(self, page):
+    def __init__(self, page: Page):
         super().__init__(page, base_url=MICROTRON_BASE_URL)
         self.url_path = ''
         self.locators = MainPageLocators
+        self.page = page
 
     def is_main_page_opened(self):
         elements_to_check = {"URL": self.is_url_correct,
