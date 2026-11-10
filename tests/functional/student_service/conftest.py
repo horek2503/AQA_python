@@ -1,3 +1,4 @@
+import allure
 import pytest
 import logging
 import random
@@ -13,6 +14,7 @@ faker = Faker()
 # package - виконується 1 раз для всіх тестів в package
 # session - виконується 1 раз для всіх тестів
 
+@allure.epic("Student Service project")
 @pytest.mark.api
 class TestStudentBase:
     student_ctrl = StudentController()

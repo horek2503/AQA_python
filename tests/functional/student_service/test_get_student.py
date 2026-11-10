@@ -3,7 +3,6 @@ import random
 from assertpy import soft_assertions, assert_that
 from tests.functional.student_service.conftest import TestStudentBase
 
-@pytest.mark.api
 class TestGetStudent(TestStudentBase):
 
     def get_random_existing_student_id(self):

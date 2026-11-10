@@ -1,6 +1,9 @@
 import pytest
 import time
+import allure
 
+
+@allure.epic("Microtron project")
 @pytest.mark.ui
 @pytest.mark.pom_style
 class  TestsUiMicrotronMainPage:
