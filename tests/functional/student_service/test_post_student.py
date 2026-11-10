@@ -1,3 +1,4 @@
+import allure
 import pytest
 import random
 from faker import Faker
@@ -5,6 +6,8 @@ from tests.functional.student_service.conftest import TestStudentBase
 
 faker = Faker()
 
+@allure.feature("Single student API")
+@allure.story("Single student CREATE")
 class TestPostStudent(TestStudentBase):
     student_to_delete_id = None
 

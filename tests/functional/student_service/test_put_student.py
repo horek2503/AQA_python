@@ -1,9 +1,13 @@
 import random
+
+import allure
 from faker import Faker
 from tests.functional.student_service.conftest import TestStudentBase
 
 faker = Faker()
 
+@allure.feature("Single student API")
+@allure.story("Single student UPDATE")
 class TestPutStudent(TestStudentBase):
 
     def test_put_student_score(self, create_and_delete_student):

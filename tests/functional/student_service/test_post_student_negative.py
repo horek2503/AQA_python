@@ -1,7 +1,10 @@
+import allure
 import pytest
 from tests.functional.student_service.conftest import TestStudentBase
 
+@allure.feature("Single student API")
 @pytest.mark.negative
+@allure.story("Single student CREATE (negative)")
 class TestPostStudentNegative(TestStudentBase):
 
     def test_post_student_without_auth_negative(self):

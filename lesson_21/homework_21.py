@@ -1,6 +1,6 @@
 import random
 from faker import Faker
-import secrets.db_secrets as s
+import secrets_storage.db_secrets as s
 from sqlalchemy import create_engine, Table, Column, Integer, String, ForeignKey, select
 from sqlalchemy.orm import declarative_base, sessionmaker, Mapped, relationship
 

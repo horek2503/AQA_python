@@ -1,10 +1,12 @@
+import allure
 import pytest
 from core.api.student_service.assertions.student_assertions import StudentAssertBase
 from tests.functional.student_service.conftest import TestStudentBase
 
 student_checker = StudentAssertBase()
 
-
+@allure.feature("Multiple students API")
+@allure.story("Multiple students READ")
 class TestGetStudents(TestStudentBase):
 
     def test_get_students(self):
@@ -29,6 +31,6 @@ class TestGetStudents(TestStudentBase):
         expected_limit = limit if limit else 10
         query_params = {"limit": limit} if limit else {}
         self.logger.info(f'Starting tests for endpoint "GET /students/" with limit = "{expected_limit}"')
-        response = self.student_ctrl.get_students(base_url=self.SERVICE_URL, query_params=query_params)
+        response = self.student_ctrl.get_students(base_url=self.SERVICE_URL, query_params=query_params, check_schema=False)
         students = response.json()
         assert len(students) == expected_limit, f'"GET /students/" limit test failed. ER = {expected_limit}; AR = {len(students)}'

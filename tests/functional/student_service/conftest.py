@@ -14,7 +14,7 @@ faker = Faker()
 # package - виконується 1 раз для всіх тестів в package
 # session - виконується 1 раз для всіх тестів
 
-@allure.epic("Student Service project")
+@allure.epic("Student Service project (API)")
 @pytest.mark.api
 class TestStudentBase:
     student_ctrl = StudentController()

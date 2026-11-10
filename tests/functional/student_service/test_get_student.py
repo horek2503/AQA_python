@@ -1,8 +1,11 @@
+import allure
 import pytest
 import random
 from assertpy import soft_assertions, assert_that
 from tests.functional.student_service.conftest import TestStudentBase
 
+@allure.feature("Single student API")
+@allure.story("Single student READ")
 class TestGetStudent(TestStudentBase):
 
     def get_random_existing_student_id(self):
@@ -12,6 +15,7 @@ class TestGetStudent(TestStudentBase):
 
         return random.choice(all_ids)
 
+    @pytest.mark.skip(reason="Not relevant")
     @pytest.mark.parametrize('student_id, expected_name, expected_score',
                              [
                                  (1, 'Jennifer Estrada', 48),

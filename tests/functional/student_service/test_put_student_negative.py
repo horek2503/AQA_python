@@ -1,6 +1,9 @@
+import allure
 import pytest
 from tests.functional.student_service.conftest import TestStudentBase
 
+@allure.feature("Single student API")
+@allure.story("Single student UPDATE (negative)")
 @pytest.mark.negative
 class TestPutStudentNegative(TestStudentBase):
 

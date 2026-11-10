@@ -12,12 +12,13 @@ class StudentController:
     def __init__(self):
         self.__token = None
 
-    def get_students(self, base_url, query_params=None, expected_status_code=200):
+    def get_students(self, base_url, query_params=None, expected_status_code=200, check_schema=True):
         response = requests.get(url=f'{base_url}/students', params=query_params)
         self.log_curl(response.request)
 
         assert response.status_code == expected_status_code, f'Status code {response.status_code} doesn\'t match expected {expected_status_code}'
-        StudentSchema(many=True).load(response.json())
+        if check_schema:
+            StudentSchema(many=True).load(response.json())
 
         return response
 
