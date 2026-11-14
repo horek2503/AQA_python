@@ -30,13 +30,13 @@ pipeline {
                     rm -rf allure-files
                     rm -rf allure-report
                     source venv/bin/activate
-                    pytest -m "${PYTEST_MARKS}" --alluredir=allure-results'''
+                    pytest -m "${PYTEST_MARKS}" --alluredir=allure-files'''
             }
         }
     }
     post {
             always {
-                allure commandline: 'Allure', includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
+                allure commandline: 'Allure', includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-files']]
             }
         }
 }
