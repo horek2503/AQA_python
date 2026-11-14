@@ -30,7 +30,7 @@ pipeline {
                     rm -rf allure-files
                     rm -rf allure-report
                     source venv/bin/activate
-                    pytest -m "${PYTEST_MARKS}"" --alluredir=allure-results'''
+                    pytest -m "${PYTEST_MARKS}" --alluredir=allure-results'''
             }
         }
     }
