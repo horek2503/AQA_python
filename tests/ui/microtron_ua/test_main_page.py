@@ -57,7 +57,7 @@ class  TestsUiMicrotronMainPage:
     @allure.story("Main page search functionality")
     @pytest.mark.parametrize('search_phrase', ['Lenovo legion 5060',
                                                'Asus Rog strix',
-                                               'ddr5 32 gb'])
+                                               'HP Victus'])
     def test_microtron_search_on_main_page(self,home_page, search_phrase):
         """Checking search functionality on main page"""
         page = home_page
